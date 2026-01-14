@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet' type='text/css'>
+
+<head>
+  <title>Clothing</title>
+  <link rel="icon" type="image/png" href="glasses.ico" sizes="96x96">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<style type="text/css">
+  a {
+    color: #C8BEA1;
+    font-family: Kanit, serif;
+    font-size: 1.1em;
+  }
+
+  p {
+    color: #CBAA96;
+    font-family: Kanit, serif;
+    font-size: 1.3em;
+  }
+</style>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>~Cheapy Shopy Shop~</h1>
+    <p>Easy - Speed - Cheap!</p>
+  </div>
+
+  <div class="container">
+    <p align="right">
+      <?PHP session_start(); 
+	if(isset($_SESSION['userName'])) echo "Welcome: " . $_SESSION['userName'];
+	if(isset($_SESSION['guest'])) echo "Welcome: " . $_SESSION['guest'];
+	ini_set('display_errors',0); // hide warning
+	include("connectDB.php");
+?>
+    <form name="logout_form" method="get" action="logout.php" align="right">
+      <button type="submit">Logout</button>
+    </form>
+    </p>
+    <div class="row">
+      <div class="col-sm-4">
+        <h3><a href="clothing.php">เสื้อผ้า</a></h3>
+      </div>
+      <!--<div class="col-sm-4">
+      <h3><a href="jewery.php">เครื่องประดับ</a></h3>
+    </div>
+    <div class="col-sm-4">
+      <h3><a href="shoes.php">รองเท้า</a></h3>        
+    </div> -->
+    </div>
+  </div>
+  <?PHP 
+	$sql = "select * from cloth Where ct_id = 1";
+	$rs = mysqli_query($conn, $sql);
+	while($rs = mysqli_fetch_array($rs)){
+		
+		
+?>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="<?PHP echo $rs['pic']; ?>" height="300" width="250">
+        <p></p>
+        <p>Name:
+          <?PHP echo $rs['c_name']; ?>
+        </p>
+        <p>Size:
+          <?PHP echo $rs['size']; ?>
+        </p>
+        <p>Price:
+          <?PHP echo $rs['price']; ?> Bath
+        </p>
+        <p><a href="edit_cloth.php?c_id=<?PHP echo $rs['c_id']; ?>">Edit</a></p>
+      </div>
+      <?PHP
+	}
+?>
+    </div>
+  </div>
+
+</body>
+
+</html>
