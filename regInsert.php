@@ -18,7 +18,7 @@ if ($cnt == 0) {
 	$sql = "Insert into user (username, password, name, email, status) Values('$userName','$passWord','$name','$email','Customer')";
 	$rs = mysqli_query($conn, $sql);
 
-	//echo "Register Successful";
+	// echo "Register Successful";
 	echo "<script>alert('Register Successful');window.location='index.html'</script>";
 	exit();
 } else {
